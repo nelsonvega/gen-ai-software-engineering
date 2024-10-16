@@ -12,7 +12,7 @@ class SolutionGenerator:
         self.output_dir = output_dir
         
     def generate_pattern_catalog(self):
-        pass
+        sd.promptcatalog.PatternCatalog().generate(self.industry,self.idea,self.output_dir)
     def generate_solution_design(self):
         sd.solutiondesign.genma.generate_solution(self.idea,self.output_dir)
         
