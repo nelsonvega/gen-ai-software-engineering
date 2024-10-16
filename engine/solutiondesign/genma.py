@@ -1,7 +1,8 @@
-import openaiapi as oai
+import logging
+import services.openaiapi as oai
 import os
 import sys
-import datetime
+from datetime import datetime
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 # Set your OpenAI API key
@@ -403,15 +404,21 @@ theme : gaia
     for orch in architecture["orchestration"]:
         markdown += f"{orch.strip()}\n"
         
-    timestamp=datetime.now().strftime("%Y%m%d%H%M")
-    fullpath=os.path.join(output,f"multi_agent_architecture_{timestamp}.md")
-    with open(fullpath, "w") as f:
-         f.write(markdown)
 
+    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+    
+    output_path = os.path.join( os.path.join(output,f"ma_architecture_{timestamp}.md"))
+    
+    
+    os.makedirs(output, exist_ok=True)
+    with open(output_path, 'w') as file:
+        file.write(markdown)
+
+    
     return markdown
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  
     
     saas_idea = "A system that provide tax optimization strategies for traders"
     
